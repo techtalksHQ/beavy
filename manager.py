@@ -36,8 +36,12 @@ ext_migrate._get_config = patched_migrate(ext_migrate._get_config)
 from beavy.app import app, manager
 
 
-from behave.__main__ import main as behave_main
-from behave.configuration import options as behave_options
+try:
+    from behave.configuration import options as behave_options
+    from behave.__main__ import main as behave_main
+    has_behave = True
+except ImportError:
+    has_behave = False
 
 
 def reformat_options(opts):
@@ -74,25 +78,51 @@ class Behave(Command):
         exit(behave_main(sys.argv[2:] + ['--no-capture',
              "beavy_apps/{}/tests/features".format(frontend)]))
 
+if has_behave:
+    manager.add_command("behave", Behave())
 
-manager.add_command("behave", Behave())
+try:
+    import pytest
+    has_pytest = True
+except ImportError:
+    has_pytest = False
 
 
-class PyTest(Command):
-    def run(self):
-        import pytest
+def pytest(path=None, no_coverage=False, maxfail=0,  # noqa
+           debug=False, verbose=False):
+    import pytest
 
-        arguments = ["--cov-config", ".coveragerc", "--cov=beavy", "beavy"]
+    arguments = []
 
-        def add_path(x):
-            arguments.append("--cov={}".format(x))
-            arguments.append(x)
+    def add_path_with_coverage(x):
+        arguments.append("--cov={}".format(x))
+        arguments.append(x)
 
+    if maxfail:
+        arguments.append("--maxfail={}".format(maxfail))
+
+    if verbose:
+        arguments.append("-vv")
+
+    if debug:
+        arguments.append("--pdb")
+
+    if no_coverage:
+        add_path = lambda x: arguments.append(x)
+    else:
+        arguments.extend(["--cov-config", ".coveragerc"])
+        add_path = add_path_with_coverage
+
+    if path:
+        add_path(path)
+    else:
+        add_path("beavy")
         get_all_beavy_paths(add_path)
 
-        exit(pytest.main(arguments))
+    exit(pytest.main(arguments))
 
-manager.add_command("pytest", PyTest())
+if has_pytest:
+    manager.command(pytest)
 
 
 class GetPaths(Command):
