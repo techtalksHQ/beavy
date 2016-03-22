@@ -13,7 +13,7 @@ class VideoView extends Component {
     const { video } = this.props
 
     return <div>
-            <span>{vidoe.created_at}</span>
+            <span>{video.created_at}</span>
             <h2><a href={video.url} target='_blank'>{video.description}</a></h2>
           </div>
   }
