@@ -1,0 +1,33 @@
+@import "main.scss";
+
+.navigation {
+  background-color: transparent;
+  padding: 0.25em 0.5em 0 0.5em;
+}
+
+.navigationWrapper {
+  display: flex;
+  line-height: 30px;
+  align-items: center;
+  > nav {
+    flex-grow: 2;
+    padding: 0 1em;
+  }
+}
+
+.logo {
+  float: none;
+  text-transform: uppercase;
+  font-size: 24px;
+  font-weight: 300;
+  color: darkred;
+
+  img {
+    display: none;
+  }
+
+  .tech {
+    color: red;
+    font-weight: 900;
+  }
+}

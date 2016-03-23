@@ -3,7 +3,12 @@
 @import "neat/_neat.scss";
 
 $base-border-color: white;
-$main-navigation-border-color: none;
+$main-navigation-border-color: transparent;
 $main-navigation-color: #333;
 $main-navigation-height: 22px;
 $main-navigation-color-hover: #2C8ECF !default;
+
+
+body {
+  margin: 0;
+}
