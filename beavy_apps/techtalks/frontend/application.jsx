@@ -5,9 +5,9 @@ import UserMenuWidget from 'containers/UserMenuWidget'
 
 import { getExtensions } from 'config/extensions'
 
-import NavigationStyles from './styles/navigation.scss';
+import NavigationStyles from './styles/navigation.scss'
 
-const navStyles = Object.assign({}, MenuStyles, NavigationStyles);
+const navStyles = Object.assign({}, MenuStyles, NavigationStyles)
 
 export default class Application extends React.Component {
   static propTypes = {

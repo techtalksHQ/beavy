@@ -1,0 +1,46 @@
+@import "main.scss";
+
+.container {
+  @include outer-container;
+  text-align: center;
+  margin-top: -40px;
+}
+
+$base-border-radius: 3px !default;
+$action-color: #477DCA !default;
+$large-screen: em(860) !default;
+$hero-background-top: #7F99BE;
+$hero-background-bottom: #20392B;
+$hero-color: white;
+$gradient-angle: 10deg;
+$hero-image: url("../imgs/rejectjs-backdrop.jpg");
+
+
+.hero {
+
+  @include background($hero-image, linear-gradient($gradient-angle, $hero-background-bottom, $hero-background-top), no-repeat $hero-background-top scroll);
+  background-color: #324766;
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding-bottom: 3em;
+  min-height: 40vh;
+  text-align: center;
+  color: $hero-color;
+  padding-top: 25%;
+  position: relative;
+  padding-bottom: 4em;
+  z-index: -1;
+}
+
+.title {
+  margin-bottom: 100px;
+  font-size: 2.25em;
+}
+
+.claim {
+  position: absolute;
+  bottom: 5px;
+  width: 100%;
+  font-size: 0.75em
+}
